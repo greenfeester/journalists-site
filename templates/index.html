@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Журналисты-фрилансеры — набор на подработку</title>
+    <meta name="description" content="Команда журналистов-фрилансеров ищет людей для фото- и видеофиксации строительных и ремонтных работ на объектах застройщиков.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">Investigative Crew</div>
+            <nav>
+                <a href="#about">О нас</a>
+                <a href="#tasks">Задачи</a>
+                <a href="#requirements">Требования</a>
+                <a href="#form">Откликнуться</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Нужны люди на подработку:<br>фото и видео строительных объектов</h1>
+            <p class="hero-sub">
+                Мы — команда журналистов-фрилансеров. Собираем информацию о деятельности застройщиков жилых комплексов, 
+                возможных нарушениях при строительстве и ремонте, а также о фактах, связанных с коррупцией в этой сфере.
+            </p>
+            <a href="#form" class="btn btn-primary">Откликнуться</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>Кто мы</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">📰</div>
+                    <h3>Журналисты-фрилансеры</h3>
+                    <p>Работаем независимо. Собираем и проверяем информацию о застройщиках ЖК, сроках сдачи, качестве работ и возможных нарушениях.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Фокус на фактах</h3>
+                    <p>Нам нужны объективные данные с мест: ведутся ли работы, соответствуют ли они заявленным срокам, что происходит на площадке.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Прозрачность</h3>
+                    <p>Мы не просим ничего незаконного. Только легальная фото- и видеофиксация с публичных мест и открытых территорий.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tasks" class="section section-alt">
+        <div class="container">
+            <h2>Что нужно делать</h2>
+            <ul class="task-list">
+                <li>
+                    <strong>Выезд на объект</strong>
+                    <span>Приехать к жилому комплексу / стройплощадке в указанное время (обычно в рабочее время).</span>
+                </li>
+                <li>
+                    <strong>Фото- и видеосъёмка</strong>
+                    <span>Зафиксировать текущее состояние: ведутся ли ремонтные/строительные работы, есть ли техника, рабочие, прогресс.</span>
+                </li>
+                <li>
+                    <strong>Сроки</strong>
+                    <span>Сравнить с заявленными сроками (мы даём ориентиры). Отметить, если работы явно не ведутся или отстают.</span>
+                </li>
+                <li>
+                    <strong>Передача материалов</strong>
+                    <span>Отправить фото/видео и краткий комментарий в Telegram или на почту. Всё просто и быстро.</span>
+                </li>
+            </ul>
+            <p class="note">Работа разовая или периодическая — по мере появления объектов. Оплата за каждый выезд + материалы.</p>
+        </div>
+    </section>
+
+    <section id="requirements" class="section">
+        <div class="container">
+            <h2>Что требуется от вас</h2>
+            <div class="req-grid">
+                <div class="req-item">
+                    <span class="req-num">01</span>
+                    <p>Смартфон с нормальной камерой (фото + видео)</p>
+                </div>
+                <div class="req-item">
+                    <span class="req-num">02</span>
+                    <p>Возможность выезжать на объекты в своём городе</p>
+                </div>
+                <div class="req-item">
+                    <span class="req-num">03</span>
+                    <p>Аккуратность и внимательность к деталям</p>
+                </div>
+                <div class="req-item">
+                    <span class="req-num">04</span>
+                    <p>Готовность работать легально и открыто</p>
+                </div>
+            </div>
+            <p class="note">Опыт съёмки или журналистики — плюс, но не обязателен. Главное — выполнить задачу точно и вовремя.</p>
+        </div>
+    </section>
+
+    <section id="form" class="section section-alt">
+        <div class="container">
+            <h2>Откликнуться</h2>
+            <p class="form-intro">Оставьте контакты — мы напишем и расскажем про конкретные объекты и условия.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('apply') }}" method="POST" class="apply-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Имя *</label>
+                        <input type="text" id="name" name="name" required placeholder="Как к вам обращаться">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Город</label>
+                        <input type="text" id="city" name="city" placeholder="Москва, СПб и др.">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 ...">
+                    </div>
+                    <div class="form-group">
+                        <label for="telegram">Telegram</label>
+                        <input type="text" id="telegram" name="telegram" placeholder="@username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Есть ли опыт съёмки / выездов?</label>
+                    <select id="experience" name="experience">
+                        <option value="">Не указано</option>
+                        <option value="нет">Нет опыта</option>
+                        <option value="немного">Немного есть</option>
+                        <option value="есть">Есть опыт</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Комментарий (необязательно)</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Город, свободное время, вопросы..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Команда журналистов-фрилансеров. Работаем открыто и в рамках закона.</p>
+            <p class="footer-small">Сайт создан для разового набора. Заявки обрабатываются вручную.</p>
+        </div>
+    </footer>
+</body>
+</html>
